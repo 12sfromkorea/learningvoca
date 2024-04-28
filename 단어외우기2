@@ -1,0 +1,46 @@
+import pandas as pd
+import random
+
+
+excel_file = '파일 경로'
+
+
+df = pd.read_excel(excel_file, usecols='D:F', skiprows=2)
+
+words = df['단어'].tolist()
+meanings = df['뜻'].tolist()
+genders = df['성별'].tolist()
+
+selected_indices = []
+
+menu = input("->한국어: f, 한국어->: k\n")
+
+while True:
+
+    random_index = random.choice([i for i in range(len(words)) if i not in selected_indices])
+    selected_indices.append(random_index)
+
+    random_word = words[random_index]
+    random_meaning = meanings[random_index]
+    random_gender = genders[random_index]
+
+    if (menu == 'f'):
+        print("단어: "+random_word)
+        answer = input("뜻: ")
+        answer_gender = input("성별: ")
+        print("단어: "+random_word+"\n뜻: "+random_meaning+"\n성별: "+random_gender)
+    elif (menu == 'k'):
+        print("뜻: "+random_meaning)
+        answer = input("단어: ")
+        answer_gender = input("성별: ")
+        print("단어: "+random_word+"\n뜻: "+random_meaning+"\n성별: "+random_gender)
+    else:
+        print("입력 오류! ->한국어: f, 한국어->: k")
+        
+        
+    menu = input("->한국어: f, 한국어->: k")
+
+
+
+
+        
