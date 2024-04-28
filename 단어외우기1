@@ -1,0 +1,36 @@
+import pandas as pd
+import random
+
+# 엑셀 파일 경로 설정
+excel_file = '(파일)'
+
+# 엑셀 파일에서 데이터 불러오기
+df = pd.read_excel(excel_file, usecols='D:F', skiprows=2)
+
+# 각 열에서 데이터 추출
+words = df['단어'].tolist()
+meanings = df['뜻'].tolist()
+genders = df['성별'].tolist()
+
+# 이전에 선택된 인덱스를 저장할 리스트
+selected_indices = []
+
+while True:
+    if len(selected_indices) == len(words):
+        print("더 이상 선택할 항목이 없습니다.")
+        break
+
+    # 이전에 선택되지 않은 랜덤 인덱스 선택
+    random_index = random.choice([i for i in range(len(words)) if i not in selected_indices])
+    selected_indices.append(random_index)
+
+
+    random_word = words[random_index]
+    random_meaning = meanings[random_index]
+    random_gender = genders[random_index]
+
+    print("랜덤으로 선택된 단어:", random_word)
+    button = input()
+    if button.lower() == "y":
+        print("뜻:", random_meaning)
+        print("성별:", random_gender)
